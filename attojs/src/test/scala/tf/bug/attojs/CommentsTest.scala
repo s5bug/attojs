@@ -9,7 +9,7 @@ class CommentsTest extends AnyWordSpec {
   "jsComment" when {
     "fed \"// test\\n\"" should {
       "output JsSingleLineComment( test)" in {
-        assertResult(ParseResult.Done("\n", JsSingleLineComment(" test")))(JsParser.jsComment.parseOnly("// test\n"))
+        assertResult(ParseResult.Done("", JsSingleLineComment(" test")))(JsParser.jsComment.parseOnly("// test\n"))
       }
     }
     "fed \"/* test */\"" should {
