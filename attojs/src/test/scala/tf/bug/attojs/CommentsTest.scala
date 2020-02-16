@@ -22,6 +22,14 @@ class CommentsTest extends AnyWordSpec {
         assertResult(ParseResult.Done("", JsMultiLineComment("\n  test\n")))(JsParser.jsComment.parseOnly("/*\n  test\n*/"))
       }
     }
+    "fed \"/*foo*/bar*/\"" should {
+      "output JsMultiLineComment(foo)" in {
+        assertResult(Some(JsMultiLineComment("foo")))(JsParser.jsComment.parseOnly("/*foo*/bar*/").option)
+      }
+      "leave \"bar*/\" remaining" in {
+        assertResult(ParseResult.Done("bar*/", JsMultiLineComment("foo")))(JsParser.jsComment.parseOnly("/*foo*/bar*/"))
+      }
+    }
   }
 
 }
